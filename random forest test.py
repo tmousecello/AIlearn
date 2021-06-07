@@ -52,3 +52,10 @@ tree.fit(x,y)
 
 figure(figsize=(16, 9),dpi=68)
 plot_tree(tree, feature_names=iris.feature_names)
+
+
+# from sklearn.ensemble import RandomForestClassifier
+# forest = RandomForestClassifier(max_depth=2)
+# forest.fit(iris.data, iris.target)
+# print(forest.predict(iris.data))
+# 直接用套件的作法
