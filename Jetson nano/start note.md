@@ -16,27 +16,27 @@ JerPack:4.5
 創建使用者  
 打開終端機  
 檢查可用容量:  
-```free -m```
+```free -m```  
 禁用ZRAM:  
-    ```sudo systemctl disable nvzramconfig```
+    ```sudo systemctl disable nvzramconfig```  
 增加交換空間:  
     ```sudo fallocate -l 4G /mnt/4GB.swap```  
     ```sudo chmod 600 /mnt/4GB.swap```  
     ```sudo mkswap /mnt/4GB.swap```  
 將其加到/etc/fstab中:  
-    ```sudo vi /etc/fstab```
+    ```sudo vi /etc/fstab```  
 切到insert模式  
 在文件最後輸入:  
-    ```/mnt/4GB.swap swap swap defaults 0 0```
+    ```/mnt/4GB.swap swap swap defaults 0 0```  
 按esc退回一般模式，按:進入指令模式，輸入:wq(儲存並退出)  
 重新啟動  
 再次檢查可用容量:  
-    ```free -m```
+    ```free -m```  
 
 無線網卡有問題  
 無法驅動  
-https://forums.developer.nvidia.com/t/edimax-ew-78111un-v2-wifi-setup/165047  
-上面有教學
+https://forums.developer.nvidia.com/t/edimax-ew-78111un-v2-wifi-setup/165047   
+上面有教學  
 ```  
 wget https://www.edimax.com/edimax/mw/cufiles/files/download/Driver_Utility/EW-7811Un_V2_Linux_Driver_1.0.0.3.zip  
 unzip EW-7811Un_V2_Linux_Driver_1.0.0.3.zip   
