@@ -15,9 +15,7 @@ import cv2
 
 import time
 
-# 我加的
-distractedUp = 0 # 抬頭的分心指數
-distractedDown = 0 # 低頭的分心指數
+
 
 
 def get_prediction(image, interpreter, signature):
@@ -62,6 +60,9 @@ def main():
     global model_outputs
     global image_shape
     global model_index
+    # 我加的
+    distractedUp = 0 # 抬頭的分心指數
+    distractedDown = 0 # 低頭的分心指數
     # --model參數設定流程
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -121,7 +122,29 @@ def main():
             Label_name = signature['classes']['Label'][prediction['Confidences'].index(max(prediction['Confidences']))]
             print(Label_name)
             print('Confidences = ' + str(max(prediction['Confidences'])) )
+            if Label_name == "up" :
+                distractedUp += 1
+                distractedDown = 0
+            else:
+                distractedDown += 1
+                distractedUp = 0
+            # if distractedDown >= 3:
+            #     cv2.putText(crop_img, ("Heads down not concentrate"),
+            #         (5,30), cv2.FONT_HERSHEY_SIMPLEX, 1,
+            #         (0,0,255), 2, cv2.LINE_AA)
+            # elif distractedUp >= 5:
+            #     cv2.putText(crop_img, ("Heads up not concentrate"),
+            #         (5,30), cv2.FONT_HERSHEY_SIMPLEX, 1,
+            #         (0,0,255), 2, cv2.LINE_AA)
         # 顯示字
+        if distractedDown >= 3:
+            cv2.putText(crop_img, ("Heads down not concentrate"),
+                (5,60), cv2.FONT_HERSHEY_SIMPLEX, 1,
+                (0,0,255), 2, cv2.LINE_AA)
+        elif distractedUp >= 5:
+            cv2.putText(crop_img, ("Heads up not concentrate"),
+                (5,60), cv2.FONT_HERSHEY_SIMPLEX, 1,
+                (0,0,255), 2, cv2.LINE_AA)
         cv2.putText(crop_img, Label_name + " " +
             str(round(max(prediction['Confidences']),3)),
             (5,30), cv2.FONT_HERSHEY_SIMPLEX, 1,
@@ -134,7 +157,9 @@ def main():
         #     str(round(max(prediction['Confidences']),小數點位數)),
         #     (5,30), cv2.FONT_HERSHEY_SIMPLEX, 1,
         #     (字的內裡顏色B,G,R), 粗細, cv2.LINE_AA)
-            if distractedDown
+            
+
+
         
 
         cv2.imshow('Detecting....',crop_img)
